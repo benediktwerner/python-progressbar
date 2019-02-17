@@ -37,9 +37,7 @@ except ImportError:
 
 from .compat import *  # for: any, next
 from .widgets import Bar, Percentage, WidgetHFill, format_updatable
-
-
-class UnknownLength: pass
+from .constants import UnknownLength
 
 
 class ProgressBar(object):
@@ -184,6 +182,8 @@ class ProgressBar(object):
 
     def percentage(self):
         """Returns the progress as a percentage."""
+        if self.maxval is UnknownLength:
+            return 0
         if self.currval >= self.maxval:
             return 100.0
         return self.currval * 100.0 / self.maxval
